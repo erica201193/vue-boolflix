@@ -3,12 +3,17 @@
         <div class="mt-5">
             <ul class="list-unstyled">
                 <li v-for="movie in moviesList" :key="movie.id">
-                <MovieCard
-                :card-title="movie.title" 
-                :original-title="movie.original_title"
-                :original-language="movie.original_language"
-                :vote-average="movie.vote_average"
-                ></MovieCard>
+                    <!-- <MovieCard
+                    :card-title="movie.title" 
+                    :original-title="movie.original_title"
+                    :original-language="movie.original_language"
+                    :vote-average="movie.vote_average"
+                    ></MovieCard> -->
+                    <MovieCard :movie="movie"></MovieCard>
+                    {{ movie.title }}
+                    {{ movie.original_title }}
+                    {{ movie.original_language }}
+                    {{ movie.vote_average }}
                 </li>
             </ul>
         </div>
@@ -18,7 +23,8 @@
 <script>
 import MovieCard from "./MovieCard.vue";
 
-import axios from "axios"
+import axios from "axios";
+
 export default {
     components: { MovieCard },
     props: {
@@ -27,11 +33,16 @@ export default {
     data() {
         return {
             moviesList: [],
+            seriesList: [],
         };
     },
     methods: {
-        fetchData() {
-            axios.get("https://api.themoviedb.org/3/search/movie", {
+        /**
+         * 
+         * @param {"movie"|"tv"} type
+         */
+        fetchData(type) {
+            axios.get("https://api.themoviedb.org/3/search/" + type, {
                 params: {
                     api_key: "3ccf13d52765e30b8380207d96d18e3d",
                     query: this.searchText,
@@ -39,13 +50,19 @@ export default {
                 }
             })
                 .then((resp) => {
-                this.moviesList = resp.data.results;
+                    if (type === "movie") {
+                        this.moviesList = resp.data.results;
+                    }
+                    else if (type === "tv") {
+                        this.seriesList = resp.data.results;
+                    }
             });
         },
     },
     watch: {
         searchText() {
-            this.fetchData();
+            this.fetchData("movie");
+            this.fetchData("tv");
         }
     },
 }
