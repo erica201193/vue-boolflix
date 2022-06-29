@@ -7,11 +7,21 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios"
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  mounted() {
+    axios.get("https://api.themoviedb.org/3/search/movie/", {
+      params: {
+        api_key: "3ccf13d52765e30b8380207d96d18e3d",
+        query: "toy story",
+        language:"it-IT",
+      }
+    })
   }
 }
 </script>
