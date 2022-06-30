@@ -3,17 +3,11 @@
         <div class="mt-5">
             <ul class="list-unstyled">
                 <li v-for="movie in moviesList" :key="movie.id">
-                    <!-- <MovieCard
-                    :card-title="movie.title" 
-                    :original-title="movie.original_title"
-                    :original-language="movie.original_language"
-                    :vote-average="movie.vote_average"
-                    ></MovieCard> -->
                     <MovieCard :movie="movie"></MovieCard>
-                    {{ movie.title }}
-                    {{ movie.original_title }}
-                    {{ movie.original_language }}
-                    {{ movie.vote_average }}
+                </li>
+
+                <li v-for="movie in seriesList" :key="movie.id">
+                    <MovieCard :movie="movie"></MovieCard>
                 </li>
             </ul>
         </div>
