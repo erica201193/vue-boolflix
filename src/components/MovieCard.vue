@@ -6,10 +6,8 @@
                 <h5>Titolo originale: {{ originalTitle }}</h5>
                 <div>Lingua: <lang-flag :iso="movie.original_language" /> </div>
                 <div>Rating: {{ movie.vote_average }}</div>
-                <img :src="moviePoster" alt="">
-                <h2>prova percorso</h2>
                 <div class="bg-dark">
-                    <img src="../../public/imgError.png" alt="">
+                    <img :src="moviePoster" alt="">
                 </div>
             </div>
         </div>
@@ -36,7 +34,7 @@ export default {
         },
         moviePoster() {
             if (this.movie.poster_path === null) {
-                return "../../public/imgError.png"
+                return "imgError.png"
             }
             return "https://image.tmdb.org/t/p/" + "w342" + this.movie.poster_path
         },
